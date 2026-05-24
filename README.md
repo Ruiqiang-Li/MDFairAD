@@ -54,7 +54,10 @@ pip install pygod numpy scipy scikit-learn pyyaml wandb
 
 ## Implementation
 
-The single main entry point is **`run_fair_ad.py`**. It loads a dataset, optionally injects synthetic anomalies (only for datasets that lack real labels), then dispatches to one of three pipelines:
+Two main entry points cover the two usage modes:
+
+- **`basic_model.py`** — runs MDFP **standalone** (the three-branch fair representation processor), no anomaly-detection head. Used for fair-representation analysis and as the warmed-up upstream module.
+- **`run_fair_ad.py`** — runs the full **MDFP + GAD head** pipeline (joint warmup + fine-tuning). It loads a dataset, optionally injects synthetic anomalies (only for datasets that lack real labels), then dispatches to one of three pipelines:
 
 - `--pipeline e2e` *(main path)* — MDFP three-branch warmup followed by joint fine-tuning with an anomaly head.
 - `--pipeline gcn_e2e` — vanilla GCN warmup baseline + anomaly head, for comparison.
@@ -65,7 +68,8 @@ The anomaly head used in `e2e` is selected by `--e2e_ad_head {dominant, conad, v
 Project layout (essentials):
 
 ```
-run_fair_ad.py              # main entry
+basic_model.py              # entry: MDFP-only (no AD head)
+run_fair_ad.py              # entry: MDFP + GAD head
 models/
   variants/
     non_linear_end_to_end_ad.py   # MDFP (three branches) + anomaly head
@@ -100,21 +104,19 @@ python run_fair_ad.py --dataset credit --pipeline e2e --e2e_ad_head conad
 
 These runs report AUC-ROC, AUC-PR, and the fairness gaps $\Delta_{DP}$ / $\Delta_{EO}$.
 
-### 2) MDFP only (no anomaly head, warmup as a fair processor)
+### 2) MDFP only (no anomaly head, fair processor warmup)
 
-To use MDFP **standalone** — i.e., just train the three-branch fair processor and cache its warmup state without joint anomaly-head fine-tuning — set the joint epochs to `0` and enable warmup caching:
+To use MDFP **standalone** as a fair representation processor — i.e., train the three-branch fair processor without any anomaly-detection head — run **`basic_model.py`** with `--model non_linear`:
 
 ```bash
-# Reddit, MDFP-only (warmup, no AD head)
-python run_fair_ad.py --dataset reddit --pipeline e2e --e2e_ad_head dominant \
-    --e2e_epochs 0 --e2e_cache_warmup
+# Reddit, MDFP-only
+python basic_model.py --dataset reddit --model non_linear
 
-# Credit, MDFP-only (warmup, no AD head)
-python run_fair_ad.py --dataset credit --pipeline e2e --e2e_ad_head dominant \
-    --e2e_epochs 0 --e2e_cache_warmup
+# Credit, MDFP-only
+python basic_model.py --dataset credit --model non_linear
 ```
 
-The cached warmup state can later be reused with `--e2e_load_warmup` to skip retraining MDFP.
+`basic_model.py` exposes only the MDFP three-branch model and reports fair-representation metrics (AUC-ROC / $\Delta_{DP}$ / $\Delta_{EO}$) without coupling to any GAD head.
 
 ### Why two modes?
 
