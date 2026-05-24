@@ -18,10 +18,6 @@ def get_dataset(args):
         dataset = GermanDataset(GERMAN)
     elif dataname == CREDIT:
         dataset = CreditDataset(CREDIT)
-    elif dataname == REDDIT:
-        dataset = RedditDataset(REDDIT)
-    elif dataname == TWITTER:
-        dataset = TwitterDataset(TWITTER)
     elif dataname == POKEC_Z:
         dataset = PokecZDataset(POKEC_Z)
     elif dataname == POKEC_N:
