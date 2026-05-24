@@ -1,0 +1,114 @@
+a_lr: 0.001
+s_lr: 0.0003
+l_lr: 0.003
+c_lr: 0.0002
+v_lr: 0.001
+lr: 0.003
+a_alpha: 1
+s_alpha: 1
+l_alpha: 1
+dis: 0.0005
+l_dis: 0.0005
+k: 2
+layers: 3
+enable_bn: False
+div_by_hidden: True
+channels: 4
+fs_alpha: 0.1
+fs_beta: 1
+classifier_use_normalized_fusion: True
+classifier_segment1_attribute_weight: 1.4
+classifier_segment1_structural_weight: 0.05
+classifier_segment1_non_linear_weight: 0.0
+classifier_segment2_attribute_weight: 1.0
+classifier_segment2_structural_weight: 0.05
+classifier_segment2_non_linear_weight: 0.40
+classifier_segment3_attribute_weight: 0.95
+classifier_segment3_structural_weight: 0.05
+classifier_segment3_non_linear_weight: 0.10
+classifier_fairness_weight: 1.25
+classifier_auc_weight: 1.45
+classifier_f1_weight: 1.0
+classifier_acc_weight: 0.5
+classifier_threshold_percentiles: [1, 2, 5, 10, 15, 20, 25, 30, 40, 50, 60, 70, 75, 80, 85, 90, 95, 98, 99]
+classifier_tie_break_prefer_auc: False
+
+e2e_epochs: 200
+e2e_lr: 0.001
+e2e_rec_alpha: 0.5
+e2e_lambda_cov: 0.25
+e2e_lambda_dcor: 0.25
+e2e_lambda_chan: 0.25
+e2e_lambda_cross: 0.0005
+e2e_joint_epochs: 200
+e2e_cls_weight: 0.1
+
+# a_lr: 0.001
+# s_lr: 0.0003
+# l_lr: 0.003
+# c_lr: 0.0002
+# v_lr: 0.001
+# lr: 0.003
+# a_alpha: 1
+# s_alpha: 1
+# l_alpha: 1
+# dis: 0.0005
+# l_dis: 0.0005
+# k: 2
+# layers: 3
+# enable_bn: False
+# div_by_hidden: True
+# channels: 4
+# fs_alpha: 0.1
+# fs_beta: 1
+# classifier_use_normalized_fusion: True
+# classifier_segment1_attribute_weight: 1.4
+# classifier_segment1_structural_weight: 0.05
+# classifier_segment1_non_linear_weight: 0.0
+# classifier_segment2_attribute_weight: 1.0
+# classifier_segment2_structural_weight: 0.05
+# classifier_segment2_non_linear_weight: 0.40
+# classifier_segment3_attribute_weight: 0.95
+# classifier_segment3_structural_weight: 0.05
+# classifier_segment3_non_linear_weight: 0.10
+# classifier_fairness_weight: 1.25
+# classifier_auc_weight: 1.45
+# classifier_f1_weight: 1.0
+# classifier_acc_weight: 0.5
+# classifier_threshold_percentiles: [1, 2, 5, 10, 15, 20, 25, 30, 40, 50, 60, 70, 75, 80, 85, 90, 95, 98, 99]
+# classifier_tie_break_prefer_auc: False
+
+# a_lr: 0.001
+# s_lr: 0.0003
+# l_lr: 0.003
+# c_lr: 0.0002
+# v_lr: 0.001
+# lr: 0.003
+# a_alpha: 1
+# s_alpha: 1
+# l_alpha: 1
+# dis: 0.0005
+# l_dis: 0.0005
+# k: 2
+# layers: 3
+# enable_bn: False
+# div_by_hidden: True
+# channels: 4
+# fs_alpha: 0.1
+# fs_beta: 1
+# classifier_use_normalized_fusion: True
+# classifier_segment1_attribute_weight: 1.4
+# classifier_segment1_structural_weight: 0.05
+# classifier_segment1_non_linear_weight: 0.0
+# classifier_segment2_attribute_weight: 1.0
+# classifier_segment2_structural_weight: 0.05
+# classifier_segment2_non_linear_weight: 0.43
+# classifier_segment3_attribute_weight: 0.95
+# classifier_segment3_structural_weight: 0.05
+# classifier_segment3_non_linear_weight: 0.13
+# classifier_fairness_weight: 1.25
+# classifier_auc_weight: 1.55
+# classifier_f1_weight: 1.0
+# classifier_acc_weight: 0.5
+# classifier_threshold_percentiles: [1, 2, 5, 10, 15, 20, 25, 30, 40, 50, 60, 70, 75, 80, 85, 90, 95, 98, 99]
+# classifier_tie_break_prefer_auc: False
