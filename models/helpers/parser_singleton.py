@@ -68,8 +68,8 @@ class ParserSingleton(object):
                             help='Dropout rate (1 - keep probability).')
         parser.add_argument('--dataset', type=str, default='bail',
                             choices=['bail', 'german', 'credit', 'reddit', 'twitter', 'pokec_z', 'pokec_n'])
-        parser.add_argument('--model', type=str, default='non_linear',
-                            choices=['non_linear', 'vanilla'])
+        parser.add_argument('--model', type=str, default='MDFP',
+                            choices=['MDFP', 'non_linear', 'vanilla'])
         parser.add_argument('--save', action='store_true', default=True, help='saves model')
         parser.add_argument('--load', type=str, default=None, help='loads model')
         parser.add_argument('--without_acc', action='store_true', default=False)
@@ -84,9 +84,10 @@ class ParserSingleton(object):
                             help='Number of epochs for the end-to-end fair anomaly detector.')
         parser.add_argument('--e2e_lr', type=float, default=0.001,
                             help='Learning rate for the end-to-end fair anomaly detector.')
-        parser.add_argument('--e2e_ad_head', type=str, default='dominant',
+        parser.add_argument('--MDFairAD', '--e2e_ad_head', dest='e2e_ad_head',
+                            type=str, default='dominant',
                             choices=['dominant', 'vgod', 'cola', 'conad'],
-                            help='Anomaly head used inside the end-to-end fair anomaly detector.')
+                            help='Anomaly head used inside MDFairAD (alias: --e2e_ad_head).')
         parser.add_argument('--e2e_rec_alpha', type=float, default=0.5,
                             help='Weight for feature reconstruction in the end-to-end anomaly loss.')
         parser.add_argument('--e2e_conad_hidden_dim', type=int, default=64,
@@ -168,6 +169,8 @@ class ParserSingleton(object):
 
         args = parser.parse_known_args()[0]
 
+        if args.model == 'MDFP':
+            args.model = 'non_linear'
         args.wandb_log = not args.no_wandb_log
         if args.wandb_sweep:
             args.wandb_log = False
