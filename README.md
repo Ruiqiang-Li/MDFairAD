@@ -3,7 +3,7 @@
 This repository provides the official implementation of **MDFairAD**, a fair graph anomaly detection (GAD) framework built around the **Multi-Disentangled Fair Processor (MDFP)** — an upstream representation module that can be plugged in front of off-the-shelf anomaly detection heads (DOMINANT, CONAD, VGOD, CoLA).
 
 <p align="center">
-  <img src="figures/overflow.pdf" alt="MDFairAD overall framework" width="90%" />
+  <img src="overflow.pdf" alt="MDFairAD overall framework" width="90%" />
 </p>
 
 The figure above gives the overall framework of MDFairAD. The input attributed graph is processed by three parallel branches inside the **Multi-Disentangled Fair Processor (MDFP)** — an attribute branch on a sensitive-free KNN graph, a structural branch on the original adjacency under a Wasserstein subgroup alignment, and a nonlinear interaction branch that fuses the two debiased views. The three branch embeddings are concatenated into a fair fused representation $\mathbf{Z}=[\mathbf{Z}_S \,\|\, \mathbf{Z}_A \,\|\, \mathbf{Z}_I]$, which is forwarded to a downstream GAD head and trained end-to-end with branch-level fairness losses. After warmup, MDFP can be reused as a standalone fair processor or jointly fine-tuned with any anomaly head.
@@ -27,13 +27,13 @@ This separation makes fairness control reusable across heterogeneous detectors a
 Required Python packages:
 
 ```
-torch==2.1.*
+torch==2.1.0
 torch_geometric
-torch_scatter==2.1.2     # (provided wheel: torch_scatter-2.1.2+pt21cu121-cp310-cp310-linux_x86_64.whl)
-torch_sparse==0.6.18     # (provided wheel: torch_sparse-0.6.18+pt21cu121-cp310-cp310-linux_x86_64.whl)
-torch_cluster==1.6.2     # (provided wheel: torch_cluster-1.6.2+pt21cu121-cp310-cp310-linux_x86_64.whl)
-torch_spline_conv==1.2.2 # (provided wheel)
-pygod                    # provides DOMINANT / CONAD / DONE / GAE
+torch_scatter==2.1.2    
+torch_sparse==0.6.18     
+torch_cluster==1.6.2   
+torch_spline_conv==1.2.2
+pygod                    
 numpy
 scipy
 scikit-learn
