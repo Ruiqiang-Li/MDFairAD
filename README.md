@@ -108,7 +108,7 @@ To use MDFP **standalone** as a fair representation processor — i.e., train th
 
 ```bash
 # Reddit, MDFP-only
-python basic_model.py --dataset reddit --model MDFP
+python basic_model.py --dataset bail --model MDFP
 
 # Credit, MDFP-only
 python basic_model.py --dataset credit --model MDFP
