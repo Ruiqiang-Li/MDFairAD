@@ -65,23 +65,6 @@ Two main entry points cover the two usage modes:
 
 The anomaly head used in `e2e` is selected by `--e2e_ad_head {dominant, conad, vgod, cola}`.
 
-Project layout (essentials):
-
-```
-basic_model.py              # entry: MDFP-only (no AD head)
-run_fair_ad.py              # entry: MDFP + GAD head
-models/
-  variants/
-    non_linear_end_to_end_ad.py   # MDFP (three branches) + anomaly head
-    GCN_end_to_end_ad.py          # vanilla GCN baseline
-    raw_input_end_to_end_ad.py    # raw-feature anomaly head ablation
-  datasets/                       # Bail, German, Credit, Reddit, Twitter loaders
-configs/                          # per-dataset hyperparameters (.yml)
-data/                             # dataset README & files
-```
-
-Datasets are referenced by name via `--dataset {bail, german, credit, reddit, twitter}`. Reddit / Twitter / Credit ship with real anomaly labels; Bail / German use synthetic outlier injection (`mdfp_outlier_injection.py`).
-
 ## Example Runs
 
 ### 1) MDFP + GAD head (fair anomaly detection)
