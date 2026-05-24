@@ -63,32 +63,26 @@ pip install pygod numpy scipy scikit-learn pyyaml wandb
 Two main entry points cover the two usage modes:
 
 - **`basic_model.py`** — runs MDFP **standalone** (the three-branch fair representation processor), no anomaly-detection head. Used for fair-representation analysis and as the warmed-up upstream module.
-- **`run_fair_ad.py`** — runs the full **MDFP + GAD head** pipeline (joint warmup + fine-tuning). It loads a dataset, optionally injects synthetic anomalies (only for datasets that lack real labels), then dispatches to one of three pipelines:
-
-- `--pipeline e2e` *(main path)* — MDFP three-branch warmup followed by joint fine-tuning with an anomaly head.
-- `--pipeline gcn_e2e` — vanilla GCN warmup baseline + anomaly head, for comparison.
-- `--pipeline raw_input_e2e` — anomaly head consumes raw graph features directly while MDFP warmup still supervises (ablation).
-
-The anomaly head used in `e2e` is selected by `--MDFairAD {dominant, conad, vgod, cola}`.
+- **`run_fair_ad.py`** — runs the full **MDFP + GAD head** pipeline: MDFP three-branch warmup followed by joint fine-tuning with an anomaly head. The head is selected by `--MDFairAD {dominant, conad, vgod, cola}`.
 
 ## Example Runs
 
 ### 1) MDFP + GAD head (fair anomaly detection)
 
-`--pipeline e2e` runs the full **MDFP + joint anomaly head** path described above.
+Run the full **MDFP + joint anomaly head** path:
 
 ```bash
 # Reddit, MDFP + DOMINANT
-python run_fair_ad.py --dataset reddit --pipeline e2e --MDFairAD dominant
+python run_fair_ad.py --dataset reddit --MDFairAD dominant
 
 # Reddit, MDFP + CONAD
-python run_fair_ad.py --dataset reddit --pipeline e2e --MDFairAD conad
+python run_fair_ad.py --dataset reddit --MDFairAD conad
 
 # Credit, MDFP + DOMINANT
-python run_fair_ad.py --dataset credit --pipeline e2e --MDFairAD dominant
+python run_fair_ad.py --dataset credit --MDFairAD dominant
 
 # Credit, MDFP + CONAD
-python run_fair_ad.py --dataset credit --pipeline e2e --MDFairAD conad
+python run_fair_ad.py --dataset credit --MDFairAD conad
 ```
 
 These runs report AUC-ROC, AUC-PR, and the fairness gaps $\Delta_{DP}$ / $\Delta_{EO}$.
@@ -99,10 +93,10 @@ The MDFP warmup stage (training the three branches before the anomaly head) is t
 
 ```bash
 # First run: warm up MDFP and save the cache to saved_models/e2e_warmup_cache/<dataset>_warmup.pt
-python run_fair_ad.py --dataset reddit --pipeline e2e --MDFairAD dominant --e2e_cache_warmup
+python run_fair_ad.py --dataset reddit --MDFairAD dominant --e2e_cache_warmup
 
 # Subsequent runs: skip the warmup stage and load the cached MDFP state directly
-python run_fair_ad.py --dataset reddit --pipeline e2e --MDFairAD dominant --e2e_load_warmup
+python run_fair_ad.py --dataset reddit --MDFairAD dominant --e2e_load_warmup
 ```
 
 - `--e2e_cache_warmup` writes the structural / attribute / non-linear branch state dicts to `saved_models/e2e_warmup_cache/{dataset}_warmup.pt` after warmup completes.
@@ -134,6 +128,6 @@ These two modes correspond directly to the two roles of MDFP described in the pa
 Per-dataset hyperparameters live in `configs/*.yml`. Multi-seed evaluation is controlled by `--seed_num` (default 5).
 
 ```bash
-python run_fair_ad.py --dataset reddit --pipeline e2e --MDFairAD dominant --seed_num 5
+python run_fair_ad.py --dataset reddit --MDFairAD dominant --seed_num 5
 ```
 
