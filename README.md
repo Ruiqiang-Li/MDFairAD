@@ -20,7 +20,7 @@ This separation makes fairness control reusable across heterogeneous detectors a
 ## Environment
 
 - Python 3.10
-- CUDA 12.1 (matching the bundled wheels)
+- CUDA 12.1
 - PyTorch 2.1
 - Recommended hardware: NVIDIA GPU with >= 12 GB VRAM (Reddit / Twitter need batch + neighbor sampling)
 
