@@ -133,4 +133,3 @@ Per-dataset hyperparameters live in `configs/*.yml`. Multi-seed evaluation is co
 python run_fair_ad.py --dataset reddit --pipeline e2e --e2e_ad_head dominant --seed_num 5
 ```
 
-See `COMMANDS.md` for additional command recipes (parameter sensitivity sweeps, ablations, etc.).
